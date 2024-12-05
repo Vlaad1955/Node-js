@@ -1,13 +1,21 @@
 const fs = require('node:fs/promises');
+const path = require('path');
 
-const Stat = async (somePath) =>{
-    const stat = await fs.stat(somePath)
-    if (stat.isFile()) {
-        console.log(`Створено файл`);
+const Stat = async (folderPath) => {
+    const entries = await fs.readdir(folderPath, { withFileTypes: true });
+
+    console.log(folderPath); // Виводимо шлях до поточної папки
+
+    for (const entry of entries) {
+        const fullPath = path.join(folderPath, entry.name);
+        if (entry.isDirectory()) {
+            console.log(`Це папка`);
+            await Stat(fullPath);
+        } else if (entry.isFile()) {
+            console.log(`Це файл`);
+            console.log(fullPath);
+        }
     }
-    else {
-        console.log(`Створена папка`);
-    }
-}
+};
 
 module.exports = Stat;

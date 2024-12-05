@@ -4,7 +4,7 @@ const path = require('path');
 const Stat = async (folderPath) => {
     const entries = await fs.readdir(folderPath, { withFileTypes: true });
 
-    console.log(folderPath); // Виводимо шлях до поточної папки
+    console.log(folderPath);
 
     for (const entry of entries) {
         const fullPath = path.join(folderPath, entry.name);

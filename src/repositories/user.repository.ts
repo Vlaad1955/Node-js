@@ -1,5 +1,5 @@
 import {IUser} from "../interfaces/user.interface";
-import { read, write } from "../services/fs.service";
+import {read, write} from "../services/fs.service";
 
 class UserRepository {
     public async getList(): Promise<IUser[]> {
@@ -21,24 +21,22 @@ class UserRepository {
 
     public async getUser(dto: number): Promise<IUser> {
         const users = await read();
-        const user = users.find(user=> user.id === dto);
-        return user;
+        return users.find(user => user.id === dto);
     }
 
     public async find(dto: number) {
         const users = await read();
-        const index = users.findIndex((user) => user.id === dto);
-        return index
+        return users.findIndex((user) => user.id === dto)
     }
 
-    async delet(index: number) {
+    public async delet(index: number) {
         const users = await read();
         users.slice(index,1);
         await write(users);
         return(users);
     }
 
-    async apdete(body: any, index: number) {
+    public async apdete(body: any, index: number) {
         const users = await read();
         const user = users[index];
         user.name = body.name;

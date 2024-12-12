@@ -31,7 +31,7 @@ class UserRepository {
 
     public async delet(index: number) {
         const users = await read();
-        users.slice(index,1);
+        users.splice(index,1);
         await write(users);
         return(users);
     }

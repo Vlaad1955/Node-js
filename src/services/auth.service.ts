@@ -24,7 +24,7 @@ class AuthService {
         await tokenRepository.create({ ...tokens, _userId: user._id });
         await emailService.sendEmail(
             EmailTypeEnum.WELCOME,
-            "wylf1312@gmail.com",
+            user.email,
             { name: user.name, frontUrl: config.frontUrl },
         );
         return { user, tokens };
@@ -82,7 +82,7 @@ class AuthService {
         await tokenRepository.deleteAlltoken(token._userId);
         await emailService.sendEmail(
             EmailTypeEnum.SEE_YOU_SOON,
-            "wylf1312@gmail.com",
+            user.email,
             { name: user.name },
         );
     }

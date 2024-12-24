@@ -1,0 +1,6 @@
+export enum EmailTypeEnum {
+    FORGOT_PASSWORD = "FORGOT_PASSWORD",
+    OLD_VISIT = "OLD_VISIT",
+    WELCOME = "WELCOME",
+    SEE_YOU_SOON = "SEE_YOU_SOON",
+}

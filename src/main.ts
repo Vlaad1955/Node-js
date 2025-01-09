@@ -1,7 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
 import expressFileUpload from "express-fileupload";
 import mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express";
 
+// @ts-ignore
+import swaggerDocument from "../docs/swagger.json";
 import { config } from "./configs/config";
 import { cronRunner } from "./crons";
 import { ApiError } from "./errors/api-error";
@@ -13,6 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressFileUpload());
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);

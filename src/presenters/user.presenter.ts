@@ -1,5 +1,5 @@
 import { config } from "../configs/config";
-import { IUser } from "../interfaces/user.interface";
+import {IUser, IUserListQuery, IUserListResponse} from "../interfaces/user.interface";
 
 class UserPresenter {
     public toResponse(entity: IUser) {
@@ -22,12 +22,24 @@ class UserPresenter {
 
     public toShortResponse(entity: IUser) {
         return {
-            id: entity._id,
+            _id: entity._id,
             name: entity.name,
             avatar: entity.avatar
                 ? `${config.AWS_S3_ENDPOINT}/${entity.avatar}`
                 : null,
             createdAt: entity.createdAt,
+        };
+    }
+
+    public toResponseList(
+        entities: IUser[],
+        total: number,
+        query: IUserListQuery,
+    ): IUserListResponse {
+        return {
+            data: entities.map(this.toShortResponse),
+            total,
+            ...query,
         };
     }
 }
